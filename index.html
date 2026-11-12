@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff8f1">
+  <meta name="description" content="Một món quà nhỏ được chuẩn bị bằng thật nhiều tình cảm.">
+  <title>Món quà bí mật ✨</title>
+  <style>
+    :root {
+      --ink: #3f3038;
+      --muted: #806d75;
+      --pink: #e889a3;
+      --pink-dark: #c85f7d;
+      --cream: #fff8f1;
+      --card: rgba(255, 255, 255, .86);
+      --shadow: 0 18px 55px rgba(109, 57, 78, .12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(ellipse at 12% 8%, #ffe4e8 0, transparent 32%),
+        radial-gradient(ellipse at 90% 30%, #ffebd9 0, transparent 28%),
+        var(--cream);
+    }
+    button { font: inherit; }
+    .wrap { width: min(1050px, calc(100% - 36px)); margin-inline: auto; }
+
+    header { padding: 22px 0; }
+    .brand { color: var(--pink-dark); font-weight: 800; letter-spacing: .04em; }
+    .hero { min-height: 76vh; display: grid; place-items: center; text-align: center; padding: 48px 0 76px; }
+    .hero-inner { max-width: 700px; }
+    .eyebrow { color: var(--pink-dark); font-size: .82rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+    h1 { margin: 14px 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.6rem, 8vw, 5.2rem); line-height: 1.05; }
+    .hero p { color: var(--muted); font-size: clamp(1rem, 2.5vw, 1.2rem); line-height: 1.8; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      border: 0; border-radius: 999px; padding: 14px 24px; margin-top: 16px;
+      color: white; background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      box-shadow: 0 10px 24px rgba(200, 95, 125, .25); cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(200, 95, 125, .32); }
+    .heart { display: inline-block; font-size: 4rem; margin-top: 22px; animation: beat 1.4s infinite; }
+    @keyframes beat { 50% { transform: scale(1.13); } }
+
+    section { padding: 52px 0; }
+    .section-heading { text-align: center; margin-bottom: 28px; }
+    h2 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 5vw, 3rem); margin: 8px 0; }
+    .section-heading p { color: var(--muted); line-height: 1.7; }
+    .card { background: var(--card); border: 1px solid rgba(255,255,255,.9); border-radius: 24px; box-shadow: var(--shadow); }
+
+    .message { max-width: 760px; margin: auto; padding: clamp(24px, 5vw, 48px); text-align: center; }
+    .message p { color: var(--muted); font-size: 1.05rem; line-height: 1.95; white-space: pre-line; }
+    .signature { color: var(--pink-dark); font-family: Georgia, serif; font-size: 1.35rem; font-style: italic; margin-top: 22px; }
+
+    .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .photo-card { overflow: hidden; padding: 10px; }
+    .photo-card img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 17px; background: linear-gradient(145deg, #ffe2e8, #fff0dc); }
+    .photo-card figcaption { padding: 13px 5px 5px; text-align: center; color: var(--muted); }
+
+    .video-card { max-width: 780px; margin: auto; padding: 12px; overflow: hidden; }
+    video { display: block; width: 100%; max-height: 470px; background: #291f25; border-radius: 16px; }
+    .video-note { text-align: center; color: var(--muted); padding: 14px 8px 5px; }
+    .closing { text-align: center; padding: 56px 20px; }
+    .closing .card { padding: 32px 20px; }
+    footer { padding: 26px 0 38px; text-align: center; color: var(--muted); font-size: .9rem; }
+    .hidden { display: none; }
+
+    @media (max-width: 700px) {
+      .hero { min-height: 68vh; }
+      .gallery { grid-template-columns: 1fr; max-width: 460px; margin: auto; }
+      .photo-card img { aspect-ratio: 4 / 3; }
+      section { padding: 38px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap"><div class="brand">♡ MỘT ĐIỀU DÀNH RIÊNG CHO BẠN</div></header>
+
+  <main>
+    <section class="hero wrap" aria-labelledby="main-title">
+      <div class="hero-inner">
+        <div class="eyebrow">Có một bí mật nhỏ...</div>
+        <h1 id="main-title">Gửi người đặc biệt 💌</h1>
+        <p>Mình đã chuẩn bị một món quà nho nhỏ. Hãy mở ra nhé — hy vọng món quà này sẽ làm bạn mỉm cười.</p>
+        <button class="button" id="open-gift" type="button">Mở món quà <span aria-hidden="true">✨</span></button>
+        <div class="heart" aria-hidden="true">💗</div>
+      </div>
+    </section>
+
+    <div id="gift-content" class="hidden">
+      <section class="wrap" id="loi-nhan">
+        <div class="section-heading">
+          <div class="eyebrow">Một lời muốn nói</div>
+          <h2>Gửi bạn</h2>
+        </div>
+        <article class="card message">
+          <!-- Hãy sửa nội dung lời nhắn bên dưới theo ý bạn. -->
+          <p>Cảm ơn bạn vì đã luôn mang đến những điều thật vui vẻ.
+Mong rằng mỗi ngày của bạn đều có thật nhiều niềm vui, tiếng cười và những điều đáng nhớ.
+
+Đây là món quà nhỏ thay cho lời muốn nói: bạn rất đặc biệt!</p>
+          <div class="signature">Thân gửi, người luôn quý bạn ♡</div>
+        </article>
+      </section>
+
+      <section class="wrap" id="ky-niem">
+        <div class="section-heading">
+          <div class="eyebrow">Những khoảnh khắc đẹp</div>
+          <h2>Một chút kỷ niệm 📸</h2>
+          <p>Thay ảnh mẫu bằng những bức ảnh bạn muốn chia sẻ.</p>
+        </div>
+        <div class="gallery">
+          <!-- Đổi đường dẫn images/anh-1.jpg, ... thành ảnh của bạn. -->
+          <figure class="card photo-card">
+            <img src="images/anh-1.jpg" alt="Kỷ niệm thứ nhất" loading="lazy" onerror="this.alt='Thêm ảnh của bạn: images/anh-1.jpg'; this.style.minHeight='220px';">
+            <figcaption>Khoảnh khắc đáng nhớ ✨</figcaption>
+          </figure>
+          <figure class="card photo-card">
+            <img src="images/anh-2.jpg" alt="Kỷ niệm thứ hai" loading="lazy" onerror="this.alt='Thêm ảnh của bạn: images/anh-2.jpg'; this.style.minHeight='220px';">
+            <figcaption>Ngày thật vui 🌷</figcaption>
+          </figure>
+          <figure class="card photo-card">
+            <img src="images/anh-3.jpg" alt="Kỷ niệm thứ ba" loading="lazy" onerror="this.alt='Thêm ảnh của bạn: images/anh-3.jpg'; this.style.minHeight='220px';">
+            <figcaption>Và còn nhiều điều nữa 💫</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="wrap" id="video">
+        <div class="section-heading">
+          <div class="eyebrow">Một đoạn phim nhỏ</div>
+          <h2>Khoảnh khắc chuyển động 🎞️</h2>
+          <p>Thay video bên dưới bằng video của riêng bạn.</p>
+        </div>
+        <div class="card video-card">
+          <!-- Đổi videos/video-cua-ban.mp4 thành đường dẫn video của bạn. -->
+          <video controls playsinline preload="metadata" poster="images/anh-bia-video.jpg">
+            <source src="videos/video-cua-ban.mp4" type="video/mp4">
+            Trình duyệt của bạn không hỗ trợ phát video.
+          </video>
+          <div class="video-note">Một kỷ niệm nhỏ để cùng xem lại ♡</div>
+        </div>
+      </section>
+
+      <section class="wrap closing">
+        <div class="card">
+          <div class="heart" aria-hidden="true">🎁</div>
+          <h2>Món quà nhỏ, tình cảm thật nhiều</h2>
+          <p style="color:var(--muted)">Hy vọng bạn thích món quà này. Chúc bạn luôn vui vẻ nhé!</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="wrap">Được làm bằng thật nhiều tình cảm ♡</footer>
+
+  <script>
+    const openButton = document.querySelector('#open-gift');
+    const giftContent = document.querySelector('#gift-content');
+
+    openButton.addEventListener('click', () => {
+      giftContent.classList.remove('hidden');
+      openButton.textContent = 'Món quà đã mở 💖';
+      openButton.disabled = true;
+      openButton.style.cursor = 'default';
+      document.querySelector('#loi-nhan').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
