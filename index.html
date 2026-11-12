@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trang của tôi</title>
+
   <style>
     body {
       margin: 0;
@@ -21,7 +22,7 @@
       width: 90%;
       padding: 32px;
       border-radius: 20px;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
 
@@ -32,21 +33,76 @@
     video {
       width: 100%;
       max-width: 640px;
-      margin-top: 20px;
+      margin: 20px auto 0;
       border-radius: 16px;
       display: block;
-      margin-left: auto;
-      margin-right: auto;
+    }
+
+    #rotate-device-warning {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: white;
+      background: #172033;
+      text-align: center;
+    }
+
+    .warning-content {
+      max-width: 420px;
+    }
+
+    @media screen and (max-width: 768px) and (orientation: portrait) {
+      #rotate-device-warning {
+        display: flex;
+      }
+
+      .card {
+        display: none;
+      }
+    }
+
+    @keyframes rotateAnim {
+      0%, 20% { transform: rotate(0deg); }
+      50%, 70% { transform: rotate(90deg); }
+      100% { transform: rotate(0deg); }
     }
   </style>
 </head>
 <body>
+  <div id="rotate-device-warning">
+    <div class="warning-content">
+      <svg
+        width="64"
+        height="64"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        style="animation: rotateAnim 2s infinite ease-in-out;"
+      >
+        <path d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5z"></path>
+        <path d="M10 12h4m-2-2v4"></path>
+      </svg>
+      <h2>Vui lòng xoay ngang màn hình</h2>
+      <p>Trải nghiệm tốt nhất khi sử dụng chế độ ngang trên thiết bị di động.</p>
+    </div>
+  </div>
+
   <div class="card">
     <h1>Trang demo của tôi</h1>
     <p>Đây là trang web đầu tiên của tôi.</p>
 
     <video controls>
-      <source src="./video/video-cua-toi.mp4" type="video/mp4">
+      <source src="./video/vid%201.mp4" type="video/mp4">
+      Trình duyệt của bạn không hỗ trợ video.
+    </video>
+
+    <video controls>
+      <source src="./video/vid%202.mp4" type="video/mp4">
       Trình duyệt của bạn không hỗ trợ video.
     </video>
   </div>
