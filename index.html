@@ -38,6 +38,7 @@
       display: block;
     }
 
+    /* Màn hình nhắc xoay ngang */
     #rotate-device-warning {
       display: none;
       position: fixed;
@@ -59,10 +60,6 @@
       #rotate-device-warning {
         display: flex;
       }
-
-      .card {
-        display: none;
-      }
     }
 
     @keyframes rotateAnim {
@@ -70,9 +67,76 @@
       50%, 70% { transform: rotate(90deg); }
       100% { transform: rotate(0deg); }
     }
+
+    /* Cổng nhập mật khẩu */
+    #password-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 99998;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      box-sizing: border-box;
+      background: rgba(23, 32, 51, 0.97);
+      color: white;
+      text-align: center;
+    }
+
+    #password-gate[hidden] {
+      display: none !important;
+    }
+
+    .password-card {
+      width: min(420px, 100%);
+      padding: 32px 24px;
+      box-sizing: border-box;
+      border-radius: 20px;
+      background: white;
+      color: #1f2937;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+    }
+
+    .password-card h2 {
+      margin-top: 0;
+    }
+
+    .password-card input,
+    .password-card button {
+      width: 100%;
+      min-height: 48px;
+      box-sizing: border-box;
+      border-radius: 10px;
+      font: inherit;
+    }
+
+    .password-card input {
+      margin: 12px 0;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      text-align: center;
+    }
+
+    .password-card button {
+      border: 0;
+      background: #172033;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #password-message {
+      min-height: 22px;
+      color: #b42318;
+    }
+
+    .password-deadline {
+      color: #5b6472;
+    }
   </style>
 </head>
+
 <body>
+  <!-- Lớp nhắc xoay ngang -->
   <div id="rotate-device-warning">
     <div class="warning-content">
       <svg
@@ -92,6 +156,32 @@
     </div>
   </div>
 
+  <!-- Cổng mật khẩu: nằm sau phần xoay màn hình và trước nội dung/video -->
+  <div id="password-gate" role="dialog" aria-modal="true" aria-labelledby="password-title">
+    <div class="password-card">
+      <h2 id="password-title">Cổng bí mật 🔐</h2>
+      <p>Nhập mật khẩu để tiếp tục nhé.</p>
+
+      <form id="password-form">
+        <label for="password-input">Mật khẩu</label>
+        <input
+          id="password-input"
+          type="text"
+          autocomplete="off"
+          placeholder="Nhập mật khẩu..."
+          required
+        >
+        <button type="submit">Mở cổng</button>
+      </form>
+
+      <p id="password-message" aria-live="polite"></p>
+      <small class="password-deadline">
+        Cổng tự mở lúc 12:00 trưa ngày 20/11/2026.
+      </small>
+    </div>
+  </div>
+
+  <!-- Nội dung trang và video -->
   <div class="card">
     <h1>Trang demo của tôi</h1>
     <p>Đây là trang web đầu tiên của tôi.</p>
@@ -106,5 +196,61 @@
       Trình duyệt của bạn không hỗ trợ video.
     </video>
   </div>
+
+  <script>
+    const gate = document.getElementById('password-gate');
+    const form = document.getElementById('password-form');
+    const input = document.getElementById('password-input');
+    const message = document.getElementById('password-message');
+
+    // 12:00 trưa 20/11/2026 theo giờ Việt Nam (UTC+7).
+    const unlockTime = Date.UTC(2026, 10, 20, 5, 0, 0);
+    const correctPassword = '20/11/2026';
+    const sessionKey = 'my_page_password_unlocked';
+
+    function openGate() {
+      gate.hidden = true;
+    }
+
+    let unlockedThisSession = false;
+
+    try {
+      unlockedThisSession = sessionStorage.getItem(sessionKey) === 'true';
+    } catch (error) {
+      // Nếu sessionStorage không dùng được, vẫn cho phép nhập mật khẩu.
+    }
+
+    if (Date.now() >= unlockTime || unlockedThisSession) {
+      openGate();
+    } else {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        if (input.value.trim() === correctPassword) {
+          try {
+            sessionStorage.setItem(sessionKey, 'true');
+          } catch (error) {
+            // Cổng vẫn mở trong trang hiện tại nếu không lưu được phiên.
+          }
+
+          message.textContent = 'Mật khẩu đúng. Đang mở cổng...';
+          message.style.color = '#2F855A';
+          setTimeout(openGate, 350);
+        } else {
+          message.textContent = 'Mật khẩu chưa đúng, bạn nhập lại nhé.';
+          input.value = '';
+          input.focus();
+        }
+      });
+
+      // Nếu trang đang mở đến đúng giờ, tự động bỏ cổng.
+      const timer = setInterval(function () {
+        if (Date.now() >= unlockTime) {
+          clearInterval(timer);
+          openGate();
+        }
+      }, 1000);
+    }
+  </script>
 </body>
 </html>
