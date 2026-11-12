@@ -3,25 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trang của tôi</title>
+  <meta name="theme-color" content="#090b14" />
+  <title>Trang bí mật của tôi</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #f7f3ff, #e1f5fe);
       color: #1f2937;
+      background: linear-gradient(135deg, #f7f3ff, #e1f5fe);
+    }
+
+    .page-content {
       display: grid;
       place-items: center;
       min-height: 100vh;
+      padding: 24px;
+    }
+
+    .page-content[hidden],
+    #password-gate[hidden] {
+      display: none !important;
     }
 
     .card {
-      background: white;
-      max-width: 700px;
-      width: 90%;
+      width: min(700px, 100%);
       padding: 32px;
       border-radius: 20px;
+      background: white;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
@@ -31,14 +45,13 @@
     }
 
     video {
+      display: block;
       width: 100%;
       max-width: 640px;
       margin: 20px auto 0;
       border-radius: 16px;
-      display: block;
     }
 
-    /* Màn hình nhắc xoay ngang */
     #rotate-device-warning {
       display: none;
       position: fixed;
@@ -68,75 +81,243 @@
       100% { transform: rotate(0deg); }
     }
 
-    /* Cổng nhập mật khẩu */
     #password-gate {
       position: fixed;
       inset: 0;
       z-index: 99998;
       display: grid;
       place-items: center;
+      overflow: auto;
       padding: 24px;
-      box-sizing: border-box;
-      background: rgba(23, 32, 51, 0.97);
-      color: white;
+      color: #f8f4e8;
       text-align: center;
+      background:
+        radial-gradient(ellipse at 50% 40%, rgba(84, 61, 132, 0.28), transparent 55%),
+        radial-gradient(ellipse at 15% 85%, rgba(35, 120, 132, 0.16), transparent 45%),
+        #090b14;
     }
 
-    #password-gate[hidden] {
-      display: none !important;
+    #password-gate::before,
+    #password-gate::after {
+      position: absolute;
+      z-index: -1;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      content: "";
+      filter: blur(75px);
+      opacity: 0.45;
+      pointer-events: none;
+      animation: glow-drift 7s ease-in-out infinite alternate;
+    }
+
+    #password-gate::before {
+      top: 8%;
+      left: 8%;
+      background: #7c3aed;
+    }
+
+    #password-gate::after {
+      right: 8%;
+      bottom: 8%;
+      background: #0e7490;
+      animation-delay: -3s;
+    }
+
+    @keyframes glow-drift {
+      from { transform: translate3d(-12px, -8px, 0) scale(0.9); }
+      to { transform: translate3d(18px, 12px, 0) scale(1.12); }
     }
 
     .password-card {
-      width: min(420px, 100%);
-      padding: 32px 24px;
-      box-sizing: border-box;
-      border-radius: 20px;
-      background: white;
-      color: #1f2937;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+      position: relative;
+      width: min(430px, 100%);
+      padding: 36px 28px 28px;
+      overflow: hidden;
+      border: 1px solid rgba(238, 210, 139, 0.36);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(30, 32, 48, 0.97), rgba(15, 17, 29, 0.98));
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+        0 0 32px rgba(164, 120, 255, 0.2),
+        0 24px 80px rgba(0, 0, 0, 0.58);
+      animation: card-appear 650ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    .password-card::before {
+      position: absolute;
+      top: 0;
+      left: 12%;
+      width: 76%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #f4d58d, transparent);
+      content: "";
+      opacity: 0.9;
+    }
+
+    @keyframes card-appear {
+      from { opacity: 0; transform: translateY(14px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .lock-emblem {
+      display: grid;
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 18px;
+      place-items: center;
+      border: 1px solid rgba(244, 213, 141, 0.6);
+      border-radius: 50%;
+      background: rgba(244, 213, 141, 0.08);
+      box-shadow: 0 0 24px rgba(244, 213, 141, 0.16);
+      font-size: 30px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: #e8cc8d;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
     }
 
     .password-card h2 {
-      margin-top: 0;
+      margin: 0;
+      color: #fffaf0;
+      font-size: clamp(23px, 6vw, 29px);
+      letter-spacing: 1px;
     }
 
-    .password-card input,
-    .password-card button {
-      width: 100%;
-      min-height: 48px;
-      box-sizing: border-box;
-      border-radius: 10px;
-      font: inherit;
+    .intro {
+      margin: 12px 0 24px;
+      color: #c5c6d2;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .password-card label {
+      display: block;
+      margin-bottom: 9px;
+      color: #e8cc8d;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .password-input-wrap {
+      position: relative;
     }
 
     .password-card input {
-      margin: 12px 0;
-      padding: 12px;
-      border: 1px solid #cbd5e1;
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 14px;
+      border: 1px solid rgba(221, 210, 180, 0.32);
+      border-radius: 12px;
+      outline: none;
+      background: rgba(7, 9, 17, 0.75);
+      color: #fffaf0;
+      font: inherit;
+      font-size: 17px;
+      letter-spacing: 2px;
       text-align: center;
+      transition: border-color 180ms ease, box-shadow 180ms ease;
     }
 
-    .password-card button {
-      border: 0;
-      background: #172033;
-      color: white;
-      font-weight: bold;
+    .password-card input::placeholder {
+      color: #777989;
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+
+    .password-card input:focus {
+      border-color: #e8cc8d;
+      box-shadow: 0 0 0 3px rgba(232, 204, 141, 0.12), 0 0 20px rgba(232, 204, 141, 0.12);
+    }
+
+    .small-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 9px;
+    }
+
+    .small-actions button {
+      padding: 6px 10px;
+      border: 1px solid rgba(221, 210, 180, 0.2);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #c7c8d2;
+      font: inherit;
+      font-size: 11px;
       cursor: pointer;
+      transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+    }
+
+    .small-actions button:hover {
+      border-color: rgba(232, 204, 141, 0.6);
+      background: rgba(232, 204, 141, 0.08);
+      color: #fffaf0;
+    }
+
+    .submit-button {
+      width: 100%;
+      min-height: 50px;
+      margin-top: 20px;
+      border: 1px solid rgba(255, 235, 190, 0.55);
+      border-radius: 12px;
+      background: linear-gradient(110deg, #d8b76a, #f4dfa5 48%, #c99d4b);
+      color: #17131a;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 0 22px rgba(232, 204, 141, 0.17);
+      transition: transform 160ms ease, box-shadow 180ms ease, filter 180ms ease;
+    }
+
+    .submit-button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+      box-shadow: 0 0 30px rgba(232, 204, 141, 0.32);
+    }
+
+    .submit-button:active {
+      transform: translateY(1px);
     }
 
     #password-message {
       min-height: 22px;
-      color: #b42318;
+      margin: 12px 0 0;
+      color: #ff9a9a;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     .password-deadline {
-      color: #5b6472;
+      display: block;
+      margin-top: 13px;
+      color: #a7a8b5;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- Lớp nhắc xoay ngang -->
   <div id="rotate-device-warning">
     <div class="warning-content">
       <svg
@@ -156,101 +337,136 @@
     </div>
   </div>
 
-  <!-- Cổng mật khẩu: nằm sau phần xoay màn hình và trước nội dung/video -->
   <div id="password-gate" role="dialog" aria-modal="true" aria-labelledby="password-title">
     <div class="password-card">
-      <h2 id="password-title">Cổng bí mật 🔐</h2>
-      <p>Nhập mật khẩu để tiếp tục nhé.</p>
+      <div class="lock-emblem" aria-hidden="true">🔐</div>
+      <p class="eyebrow">A private moment</p>
+      <h2 id="password-title">Cánh Cổng Bí Mật</h2>
+      <p class="intro">Một khoảnh khắc nhỏ đang chờ bạn phía sau cánh cổng này.</p>
 
       <form id="password-form">
         <label for="password-input">Mật khẩu</label>
-        <input
-          id="password-input"
-          type="text"
-          autocomplete="off"
-          placeholder="Nhập mật khẩu..."
-          required
-        >
-        <button type="submit">Mở cổng</button>
+        <div class="password-input-wrap">
+          <input
+            id="password-input"
+            type="password"
+            autocomplete="off"
+            placeholder="Nhập mật khẩu..."
+            aria-describedby="password-message"
+            required
+          >
+        </div>
+
+        <div class="small-actions">
+          <button type="button" id="toggle-password">Hiện mật khẩu</button>
+          <button type="button" id="clear-password">Xóa</button>
+        </div>
+
+        <button class="submit-button" type="submit">MỞ CÁNH CỔNG ✨</button>
+        <p id="password-message" aria-live="polite"></p>
       </form>
 
-      <p id="password-message" aria-live="polite"></p>
       <small class="password-deadline">
-        Cổng tự mở lúc 12:00 trưa ngày 20/11/2026.
+        Cổng sẽ tự mở lúc 12:00 trưa ngày 20/11/2026.
       </small>
     </div>
   </div>
 
-  <!-- Nội dung trang và video -->
-  <div class="card">
-    <h1>Trang demo của tôi</h1>
-    <p>Đây là trang web đầu tiên của tôi.</p>
+  <main class="page-content" id="page-content" hidden>
+    <div class="card">
+      <h1>Trang demo của tôi</h1>
+      <p>Đây là trang web đầu tiên của tôi.</p>
 
-    <video controls>
-      <source src="./video/vid%201.mp4" type="video/mp4">
-      Trình duyệt của bạn không hỗ trợ video.
-    </video>
+      <video controls>
+        <source src="./video/vid%201.mp4" type="video/mp4">
+        Trình duyệt của bạn không hỗ trợ video.
+      </video>
 
-    <video controls>
-      <source src="./video/vid%202.mp4" type="video/mp4">
-      Trình duyệt của bạn không hỗ trợ video.
-    </video>
-  </div>
+      <video controls>
+        <source src="./video/vid%202.mp4" type="video/mp4">
+        Trình duyệt của bạn không hỗ trợ video.
+      </video>
+    </div>
+  </main>
 
   <script>
     const gate = document.getElementById('password-gate');
+    const pageContent = document.getElementById('page-content');
     const form = document.getElementById('password-form');
     const input = document.getElementById('password-input');
     const message = document.getElementById('password-message');
+    const toggleButton = document.getElementById('toggle-password');
+    const clearButton = document.getElementById('clear-password');
 
-    // 12:00 trưa 20/11/2026 theo giờ Việt Nam (UTC+7).
-    const unlockTime = Date.UTC(2026, 10, 20, 5, 0, 0);
     const correctPassword = '20/11/2026';
-    const sessionKey = 'my_page_password_unlocked';
+    const unlockTime = Date.UTC(2026, 10, 20, 5, 0, 0);
+    const sessionKey = 'my-page-unlocked';
 
-    function openGate() {
+    function unlockPage() {
       gate.hidden = true;
+      pageContent.hidden = false;
     }
+
+    function lockPage() {
+      gate.hidden = false;
+      pageContent.hidden = true;
+    }
+
+    toggleButton.addEventListener('click', () => {
+      const shouldShow = input.type === 'password';
+      input.type = shouldShow ? 'text' : 'password';
+      toggleButton.textContent = shouldShow ? 'Ẩn mật khẩu' : 'Hiện mật khẩu';
+      input.focus();
+    });
+
+    clearButton.addEventListener('click', () => {
+      input.value = '';
+      message.textContent = '';
+      input.focus();
+    });
 
     let unlockedThisSession = false;
 
     try {
       unlockedThisSession = sessionStorage.getItem(sessionKey) === 'true';
     } catch (error) {
-      // Nếu sessionStorage không dùng được, vẫn cho phép nhập mật khẩu.
+      // không làm gì nếu sessionStorage không dùng được
     }
 
     if (Date.now() >= unlockTime || unlockedThisSession) {
-      openGate();
+      unlockPage();
     } else {
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        if (input.value.trim() === correctPassword) {
-          try {
-            sessionStorage.setItem(sessionKey, 'true');
-          } catch (error) {
-            // Cổng vẫn mở trong trang hiện tại nếu không lưu được phiên.
-          }
-
-          message.textContent = 'Mật khẩu đúng. Đang mở cổng...';
-          message.style.color = '#2F855A';
-          setTimeout(openGate, 350);
-        } else {
-          message.textContent = 'Mật khẩu chưa đúng, bạn nhập lại nhé.';
-          input.value = '';
-          input.focus();
-        }
-      });
-
-      // Nếu trang đang mở đến đúng giờ, tự động bỏ cổng.
-      const timer = setInterval(function () {
-        if (Date.now() >= unlockTime) {
-          clearInterval(timer);
-          openGate();
-        }
-      }, 1000);
+      lockPage();
     }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      if (input.value.trim() === correctPassword) {
+        try {
+          sessionStorage.setItem(sessionKey, 'true');
+        } catch (error) {
+          // bỏ qua nếu không lưu được
+        }
+
+        message.textContent = 'Mật khẩu chính xác. Đang mở cổng...';
+        message.style.color = '#9de3b1';
+
+        unlockPage();
+      } else {
+        message.textContent = 'Mật khẩu chưa đúng, bạn nhập lại nhé.';
+        message.style.color = '#ff9a9a';
+        input.value = '';
+        input.focus();
+      }
+    });
+
+    const unlockTimer = setInterval(() => {
+      if (Date.now() >= unlockTime) {
+        clearInterval(unlockTimer);
+        unlockPage();
+      }
+    }, 1000);
   </script>
 </body>
 </html>
