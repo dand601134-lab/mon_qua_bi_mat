@@ -1,0 +1,35 @@
+#start-screen[hidden] {
+  display: none !important;
+}
+
+#start-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99997;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #ffe8f0, #f8d8e7);
+}
+
+.start-card {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+}
+
+.start-image {
+  display: block;
+  width: min(220px, 60vw);
+  height: auto;
+}
+
+#start-button {
+  border: 0;
+  background: transparent;
+  color: #f45c91;
+  font: inherit;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+}
