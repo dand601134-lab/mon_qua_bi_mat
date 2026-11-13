@@ -6,7 +6,7 @@ const message = document.getElementById('password-message');
 const toggleButton = document.getElementById('toggle-password');
 const clearButton = document.getElementById('clear-password');
 
-const correctPassword = '20/11/2026';
+const correctPassword = '07082026';
 // 12:00 trưa ngày 20/11/2026 theo giờ Việt Nam.
 const unlockTime = Date.UTC(2026, 10, 20, 5, 0, 0);
 const sessionKey = 'my-page-unlocked';
