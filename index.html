@@ -379,6 +379,11 @@
       class="start-image"
       src="./img/start-book.png"
       alt="Chạm để bắt đầu"
+      role="button"
+      tabindex="0"
+      style="cursor: pointer;"
+      onclick="document.getElementById('start-screen').hidden = true; document.getElementById('page-content').hidden = false;"
+      onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }"
     >
     <button id="start-button" type="button">Chạm để bắt đầu</button>
   </div>
