@@ -54,12 +54,12 @@ body::after {
 
 body::before {
   background: linear-gradient(135deg, #ffb6c1, #ffd1b8);
-  animation: pink-background 12s ease-in-out infinite;
+  animation: pink-background 16s ease-in-out infinite;
 }
 
 body::after {
   background: linear-gradient(135deg, #d8b8ff, #a9c8ff);
-  animation: purple-background 12s ease-in-out infinite;
+  animation: purple-background 16s ease-in-out infinite;
 }
 
 @keyframes pink-background {
@@ -192,4 +192,56 @@ body::after {
 @keyframes flower-sway {
   from { transform: rotate(-3deg); }
   to { transform: rotate(3deg); }
+}
+
+.sky-orb {
+  position: fixed;
+  bottom: 8vh;
+  z-index: 1;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.sun {
+  left: 8%;
+  background: radial-gradient(circle at 35% 35%, #fff8c7, #ffd34e 70%);
+  box-shadow: 0 0 35px 10px rgba(255, 207, 72, 0.45);
+  animation: sun-cycle 16s ease-in-out infinite;
+}
+
+.moon {
+  right: 8%;
+  background: radial-gradient(circle at 35% 35%, #fff, #e6e9f2 75%);
+  box-shadow: 0 0 35px 10px rgba(230, 235, 255, 0.4);
+  animation: moon-cycle 16s ease-in-out infinite;
+}
+
+@keyframes sun-cycle {
+  0%, 12%, 88%, 100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  32%, 68% {
+    opacity: 0;
+    transform: translateY(150px);
+  }
+}
+
+@keyframes moon-cycle {
+  0%, 24%, 76%, 100% {
+    opacity: 0;
+    transform: translateY(150px);
+  }
+  44%, 56% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-content {
+  position: relative;
+  z-index: 2;
 }
