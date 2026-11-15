@@ -420,7 +420,9 @@ body::after {
 .page-content {
   position: relative;
   z-index: 2;
-/* Trước khi chạm: chỉ hiện nền đen và sao; giấu toàn bộ cảnh */
+}
+
+/* Trước khi chạm: ẩn cỏ, mặt trời, mặt trăng và các hiệu ứng */
 body:not(.scene-started) .sky-orb,
 body:not(.scene-started) .bottom-garden,
 body:not(.scene-started) .sky-cloud,
@@ -471,7 +473,7 @@ body.scene-started::after {
   display: none;
 }
 
-/* Chỉ hiện cỏ, mây, lá và thiên thể sau khi chạm */
+/* Hiện cảnh sau khi chạm */
 body.scene-started .bottom-garden,
 body.scene-started .sky-cloud,
 body.scene-started .flying-leaf,
@@ -485,7 +487,7 @@ body.scene-started .sky-effects {
   visibility: visible;
 }
 
-/* Mặt trời và mặt trăng cùng phía bên phải, mọc lên sau cỏ */
+/* Mặt trời và mặt trăng xuất phát sau cỏ, cùng phía bên phải */
 body.scene-started .sky-orb {
   top: auto;
   right: 12%;
@@ -508,7 +510,7 @@ body.scene-started .moon {
   animation: moon-show 60s ease-in-out infinite;
 }
 
-/* Mặt trời lên gần đầu trang rồi lặn xuống sau cỏ */
+/* Mặt trời đi lên gần đỉnh rồi lặn xuống sau cỏ */
 @keyframes sun-show {
   0%, 50% {
     opacity: 0;
@@ -532,7 +534,7 @@ body.scene-started .moon {
   }
 }
 
-/* Sau đó mặt trăng đi lên rồi xuống theo cùng đường */
+/* Tiếp đó mặt trăng đi lên rồi lặn xuống */
 @keyframes moon-show {
   0%, 50%, 100% {
     opacity: 0;
@@ -547,76 +549,6 @@ body.scene-started .moon {
     transform: translateY(-82vh);
   }
   94% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Con trỏ sao và vệt sao */
-body.cursor-scene,
-body.cursor-scene * {
-  cursor: none !important;
-}
-
-.star-cursor,
-.star-trail {
-  position: fixed;
-  z-index: 100001;
-  pointer-events: none;
-  color: #ffd9f2;
-  text-shadow: 0 0 8px #ff8ed2, 0 0 20px #ff8ed2;
-}
-
-.star-cursor {
-  top: 0;
-  left: 0;
-  opacity: 0;
-  font-size: 25px;
-  transform: translate(-50%, -50%);
-}
-
-body.cursor-scene .star-cursor {
-  opacity: 1;
-}
-
-.star-trail {
-  animation: trail-fade 800ms ease-out forwards;
-}
-
-@keyframes trail-fade {
-  from {
-    opacity: 0.95;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translate(-50%, -32px) scale(0.15) rotate(35deg);
-  }
-}
-    opacity: 1;
-    transform: translateY(-42vh);
-  }
-  40% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Mặt trăng tiếp tục mọc lên rồi lặn xuống */
-@keyframes moon-show {
-  0%, 48%, 100% {
-    opacity: 0;
-    transform: translateY(130px);
-  }
-  56% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  74% {
-    opacity: 1;
-    transform: translateY(-42vh);
-  }
-  92% {
     opacity: 1;
     transform: translateY(0);
   }
