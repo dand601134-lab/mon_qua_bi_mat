@@ -552,9 +552,3 @@ body.scene-started::after {
   background: none !important;
   animation: none !important;
 }
-
-body.scene-started .sky-effects,
-body.scene-started .bottom-garden {
-  opacity: 0 !important;
-  visibility: hidden !important;
-}
