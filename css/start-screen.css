@@ -494,59 +494,66 @@ body.scene-started .sky-orb {
   bottom: 8vh;
   left: auto;
   z-index: 2;
-  width: clamp(79px, 10vw, 100px);
-  height: clamp(79px, 10vw, 100px);
+  width: clamp(72px, 9vw, 100px);
+  height: clamp(72px, 9vw, 100px);
 }
 
 body.scene-started .bottom-garden {
   z-index: 3;
 }
 
+/* Cả hai dùng chung chu kỳ 120 giây */
 body.scene-started .sun {
-  animation: sun-show 80s ease-in-out infinite;
+  animation: sun-show 120s linear infinite;
 }
 
 body.scene-started .moon {
-  animation: moon-show 80s ease-in-out infinite;
+  animation: moon-show 120s linear infinite;
 }
 
-/* Mặt trời đi lên gần đỉnh rồi lặn xuống sau cỏ */
 @keyframes sun-show {
-  0%, 52% {
+  0%, 4% {
     opacity: 0;
     transform: translateY(140px);
   }
-  8% {
+  6% {
     opacity: 1;
     transform: translateY(0);
   }
-  30%, 40% {
+  26%, 30% {
     opacity: 1;
-    transform: translateY(calc(-87vh + clamp(72px, 10vw, 100px)));
+    transform: translateY(calc(-85vh + clamp(72px, 9vw, 100px)));
   }
-  50% {
+  48% {
     opacity: 1;
     transform: translateY(0);
+  }
+  50%, 52% {
+    opacity: 0;
+    transform: translateY(140px);
   }
 }
 
-/* Tiếp đó mặt trăng đi lên rồi lặn xuống */
 @keyframes moon-show {
-  0%, 52%, 100% {
+  0%, 50%, 52% {
     opacity: 0;
     transform: translateY(140px);
   }
-  60% {
+  56% {
     opacity: 1;
     transform: translateY(0);
   }
-  82%, 90% {
+  76%, 80% {
     opacity: 1;
-    transform: translateY(calc(-87vh + clamp(72px, 10vw, 100px)));
+    transform: translateY(calc(-85vh + clamp(72px, 9vw, 100px)));
   }
   98% {
     opacity: 1;
     transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(140px);
   }
 }
 
