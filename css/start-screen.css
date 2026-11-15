@@ -420,13 +420,12 @@ body::after {
 .page-content {
   position: relative;
   z-index: 2;
-}
-/* Trước khi chạm: chỉ hiện nền sao và lời nhắc */
+/* Trước khi chạm: chỉ hiện nền đen và sao; giấu toàn bộ cảnh */
 body:not(.scene-started) .sky-orb,
 body:not(.scene-started) .bottom-garden,
 body:not(.scene-started) .sky-cloud,
 body:not(.scene-started) .flying-leaf {
-  visibility: hidden;
+  display: none !important;
 }
 
 body:not(.scene-started) .stars {
@@ -459,74 +458,141 @@ body:not(.scene-started) .stars {
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
 }
 
-/* Sau khi chạm: nền hồng tím, hiện cỏ, mây, lá và thiên thể */
+/* Sau khi chạm: nền hồng tím */
+body.scene-started {
+  background: linear-gradient(135deg, #f3a6cf 0%, #c5a5e8 52%, #f7c2d2 100%);
+}
+
 body.scene-started::before {
-  background:
-    radial-gradient(ellipse at 50% 18%, rgba(255, 224, 166, 0.75), transparent 35%),
-    linear-gradient(135deg, #f3a6cf 0%, #c5a5e8 52%, #f7c2d2 100%);
+  background: transparent;
 }
 
 body.scene-started::after {
   display: none;
 }
 
-body.scene-started .sky-effects,
+/* Chỉ hiện cỏ, mây, lá và thiên thể sau khi chạm */
 body.scene-started .bottom-garden,
-body.scene-started .sky-orb,
 body.scene-started .sky-cloud,
-body.scene-started .flying-leaf {
+body.scene-started .flying-leaf,
+body.scene-started .sky-orb {
+  display: block;
   visibility: visible;
   opacity: 1;
 }
 
 body.scene-started .sky-effects {
-  z-index: 0;
+  visibility: visible;
 }
 
+/* Mặt trời và mặt trăng cùng phía bên phải, mọc lên sau cỏ */
 body.scene-started .sky-orb {
-  top: 10vh;
-  bottom: auto;
-  left: 50%;
-  right: auto;
+  top: auto;
+  right: 12%;
+  bottom: 8vh;
+  left: auto;
+  z-index: 2;
   width: clamp(120px, 16vw, 180px);
   height: clamp(120px, 16vw, 180px);
-  z-index: 1;
 }
 
 body.scene-started .bottom-garden {
   z-index: 3;
 }
 
-/* Mặt trời và mặt trăng ở bên phải, mọc lên từ sau bãi cỏ */
-body.scene-started .sky-orb {
-  top: auto;
-  right: 12%;
-  bottom: 8vh;
-  left: auto;
-  z-index: 2; /* bãi cỏ có z-index: 3 nên che phần thiên thể ở chân trời */
-  width: clamp(120px, 16vw, 180px);
-  height: clamp(120px, 16vw, 180px);
-}
-
 body.scene-started .sun {
-  animation: sun-show 48s linear infinite;
+  animation: sun-show 60s ease-in-out infinite;
 }
 
 body.scene-started .moon {
-  animation: moon-show 48s linear infinite;
+  animation: moon-show 60s ease-in-out infinite;
 }
 
-/* Mặt trời mọc lên, đi qua trời rồi lặn xuống sau cỏ */
+/* Mặt trời lên gần đầu trang rồi lặn xuống sau cỏ */
 @keyframes sun-show {
-  0%, 48% {
+  0%, 50% {
     opacity: 0;
-    transform: translateY(130px);
+    transform: translateY(140px);
   }
   8% {
     opacity: 1;
     transform: translateY(0);
   }
-  25% {
+  28% {
+    opacity: 1;
+    transform: translateY(-70vh);
+  }
+  44% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  48% {
+    opacity: 0;
+    transform: translateY(140px);
+  }
+}
+
+/* Sau đó mặt trăng đi lên rồi xuống theo cùng đường */
+@keyframes moon-show {
+  0%, 50%, 100% {
+    opacity: 0;
+    transform: translateY(140px);
+  }
+  58% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  78% {
+    opacity: 1;
+    transform: translateY(-70vh);
+  }
+  94% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Con trỏ sao và vệt sao */
+body.cursor-scene,
+body.cursor-scene * {
+  cursor: none !important;
+}
+
+.star-cursor,
+.star-trail {
+  position: fixed;
+  z-index: 100001;
+  pointer-events: none;
+  color: #ffd9f2;
+  text-shadow: 0 0 8px #ff8ed2, 0 0 20px #ff8ed2;
+}
+
+.star-cursor {
+  top: 0;
+  left: 0;
+  opacity: 0;
+  font-size: 25px;
+  transform: translate(-50%, -50%);
+}
+
+body.cursor-scene .star-cursor {
+  opacity: 1;
+}
+
+.star-trail {
+  animation: trail-fade 800ms ease-out forwards;
+}
+
+@keyframes trail-fade {
+  from {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -32px) scale(0.15) rotate(35deg);
+  }
+}
     opacity: 1;
     transform: translateY(-42vh);
   }
