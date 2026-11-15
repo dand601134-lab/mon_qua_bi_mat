@@ -420,7 +420,6 @@ body::after {
 .page-content {
   position: relative;
   z-index: 2;
-}
 /* Trước khi chạm: chỉ hiện nền sao và lời nhắc */
 body:not(.scene-started) .sky-orb,
 body:not(.scene-started) .bottom-garden,
@@ -435,7 +434,7 @@ body:not(.scene-started) .stars {
   animation: none;
 }
 
-/* Lời nhắc chạm nằm phía dưới, toàn màn hình có thể chạm */
+/* Lời nhắc chạm */
 #start-screen:not([hidden]) {
   position: fixed;
   inset: 0;
@@ -459,48 +458,28 @@ body:not(.scene-started) .stars {
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
 }
 
-/* Mặt trời và mặt trăng cùng vị trí, lớn hơn và cao hơn */
-.sky-orb {
-  top: 10vh;
-  bottom: auto;
-  left: 50%;
-  right: auto;
-  width: clamp(120px, 16vw, 180px);
-  height: clamp(120px, 16vw, 180px);
+/* Sau khi chạm: nền hồng tím, hiện cỏ, mây, lá và thiên thể */
+body.scene-started::before {
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(255, 224, 166, 0.75), transparent 35%),
+    linear-gradient(135deg, #f3a6cf 0%, #c5a5e8 52%, #f7c2d2 100%);
 }
 
-@keyframes sun-cycle {
-  0%, 100% { opacity: 0; transform: translate(-50%, 130px); }
-  10%, 40% { opacity: 1; transform: translate(-50%, 0); }
-  25% { opacity: 1; transform: translate(-50%, -40px); }
-  50% { opacity: 0; transform: translate(-50%, 130px); }
+body.scene-started::after {
+  display: none;
 }
 
-@keyframes moon-cycle {
-  0%, 45%, 100% { opacity: 0; transform: translate(-50%, 130px); }
-  58%, 92% { opacity: 1; transform: translate(-50%, 0); }
-  75% { opacity: 1; transform: translate(-50%, -40px); }
-}
-
-/* Kiểu con trỏ sao và vệt sao */
-body.cursor-scene,
-body.cursor-scene * {
-  cursor: none !important;
-}
-
-.star-cursor,
-.star-trail {
-  position: fixed;
-  z-index: 100001;
-  pointer-events: none;
-  color: #ffd9f2;
-  text-shadow: 0 0 8px #ff8ed2, 0 0 20px #ff8ed2;
-}
-body.scene-started .sky-orb,
 body.scene-started .sky-effects,
-body.scene-started .bottom-garden {
-  visibility: visible !important;
-  opacity: 1 !important;
+body.scene-started .bottom-garden,
+body.scene-started .sky-orb,
+body.scene-started .sky-cloud,
+body.scene-started .flying-leaf {
+  visibility: visible;
+  opacity: 1;
+}
+
+body.scene-started .sky-effects {
+  z-index: 0;
 }
 
 body.scene-started .sky-orb {
@@ -508,9 +487,16 @@ body.scene-started .sky-orb {
   bottom: auto;
   left: 50%;
   right: auto;
+  width: clamp(120px, 16vw, 180px);
+  height: clamp(120px, 16vw, 180px);
+  z-index: 1;
+}
+
+body.scene-started .bottom-garden {
   z-index: 3;
 }
 
+/* Mặt trời và mặt trăng luân phiên ở giữa trời */
 body.scene-started .sun {
   animation: sun-show 24s linear infinite;
 }
@@ -529,9 +515,21 @@ body.scene-started .moon {
   52%, 100% { opacity: 1; transform: translate(-50%, 0); }
 }
 
-body.scene-started .bottom-garden {
-  z-index: 2;
+/* Con trỏ sao và vệt sao */
+body.cursor-scene,
+body.cursor-scene * {
+  cursor: none !important;
 }
+
+.star-cursor,
+.star-trail {
+  position: fixed;
+  z-index: 100001;
+  pointer-events: none;
+  color: #ffd9f2;
+  text-shadow: 0 0 8px #ff8ed2, 0 0 20px #ff8ed2;
+}
+
 .star-cursor {
   top: 0;
   left: 0;
@@ -557,33 +555,4 @@ body.cursor-scene .star-cursor {
     opacity: 0;
     transform: translate(-50%, -32px) scale(0.15) rotate(35deg);
   }
-}
-/* Sau khi chạm: đổi nền tối thành nền hồng tím */
-body.scene-started::before {
-  background:
-    radial-gradient(ellipse at 50% 18%, rgba(255, 224, 166, 0.75), transparent 35%),
-    linear-gradient(135deg, #f3a6cf 0%, #c5a5e8 52%, #f7c2d2 100%);
-}
-
-/* Tắt lớp sao chấm của nền tối */
-body.scene-started::after {
-  animation: none;
-  opacity: 0;
-  background: none;
-}body.scene-started {
-  background: linear-gradient(180deg, #f2b6d8 0%, #d4b5f4 42%, #f9d9c7 100%);
-}
-
-body.scene-started::before {
-  background:
-    radial-gradient(circle at 50% 18%, rgba(255, 245, 210, 0.9), transparent 12%),
-    radial-gradient(circle at 70% 23%, rgba(255, 240, 220, 0.7), transparent 16%),
-    linear-gradient(180deg, #f2b6d8 0%, #d4b5f4 45%, #f9d9c7 100%);
-  opacity: 1;
-}
-
-body.scene-started::after {
-  opacity: 0 !important;
-  background: none !important;
-  animation: none !important;
 }
