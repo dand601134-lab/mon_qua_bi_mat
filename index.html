@@ -434,5 +434,42 @@
 </div>
 
 <script src="./Javascript/password-gate.js"></script>
+  <script>
+  const starCursor = document.createElement('span');
+  starCursor.className = 'star-cursor';
+  starCursor.textContent = '✦';
+  document.body.appendChild(starCursor);
+
+  let lastTrailX = 0;
+  let lastTrailY = 0;
+
+  document.addEventListener('pointermove', (event) => {
+    if (!document.body.classList.contains('cursor-scene')) return;
+    if (event.pointerType === 'touch') return;
+
+    starCursor.style.left = `${event.clientX}px`;
+    starCursor.style.top = `${event.clientY}px`;
+
+    const distance = Math.hypot(
+      event.clientX - lastTrailX,
+      event.clientY - lastTrailY
+    );
+
+    if (distance < 22) return;
+
+    lastTrailX = event.clientX;
+    lastTrailY = event.clientY;
+
+    const trail = document.createElement('span');
+    trail.className = 'star-trail';
+    trail.textContent = '✦';
+    trail.style.left = `${event.clientX}px`;
+    trail.style.top = `${event.clientY}px`;
+    trail.style.fontSize = `${10 + Math.random() * 9}px`;
+    document.body.appendChild(trail);
+
+    setTimeout(() => trail.remove(), 850);
+  });
+</script>
 </body>
 </html>
