@@ -420,6 +420,7 @@ body::after {
 .page-content {
   position: relative;
   z-index: 2;
+}
 /* Trước khi chạm: chỉ hiện nền sao và lời nhắc */
 body:not(.scene-started) .sky-orb,
 body:not(.scene-started) .bottom-garden,
@@ -496,23 +497,63 @@ body.scene-started .bottom-garden {
   z-index: 3;
 }
 
-/* Mặt trời và mặt trăng luân phiên ở giữa trời */
+/* Mặt trời và mặt trăng ở bên phải, mọc lên từ sau bãi cỏ */
+body.scene-started .sky-orb {
+  top: auto;
+  right: 12%;
+  bottom: 8vh;
+  left: auto;
+  z-index: 2; /* bãi cỏ có z-index: 3 nên che phần thiên thể ở chân trời */
+  width: clamp(120px, 16vw, 180px);
+  height: clamp(120px, 16vw, 180px);
+}
+
 body.scene-started .sun {
-  animation: sun-show 24s linear infinite;
+  animation: sun-show 48s linear infinite;
 }
 
 body.scene-started .moon {
-  animation: moon-show 24s linear infinite;
+  animation: moon-show 48s linear infinite;
 }
 
+/* Mặt trời mọc lên, đi qua trời rồi lặn xuống sau cỏ */
 @keyframes sun-show {
-  0%, 48% { opacity: 1; transform: translate(-50%, 0); }
-  52%, 100% { opacity: 0; transform: translate(-50%, 0); }
+  0%, 48% {
+    opacity: 0;
+    transform: translateY(130px);
+  }
+  8% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(-42vh);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+/* Mặt trăng tiếp tục mọc lên rồi lặn xuống */
 @keyframes moon-show {
-  0%, 48% { opacity: 0; transform: translate(-50%, 0); }
-  52%, 100% { opacity: 1; transform: translate(-50%, 0); }
+  0%, 48%, 100% {
+    opacity: 0;
+    transform: translateY(130px);
+  }
+  56% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  74% {
+    opacity: 1;
+    transform: translateY(-42vh);
+  }
+  92% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Con trỏ sao và vệt sao */
