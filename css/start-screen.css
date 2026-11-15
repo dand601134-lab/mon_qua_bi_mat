@@ -496,7 +496,42 @@ body.cursor-scene * {
   color: #ffd9f2;
   text-shadow: 0 0 8px #ff8ed2, 0 0 20px #ff8ed2;
 }
+body.scene-started .sky-orb,
+body.scene-started .sky-effects,
+body.scene-started .bottom-garden {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
 
+body.scene-started .sky-orb {
+  top: 10vh;
+  bottom: auto;
+  left: 50%;
+  right: auto;
+  z-index: 3;
+}
+
+body.scene-started .sun {
+  animation: sun-show 24s linear infinite;
+}
+
+body.scene-started .moon {
+  animation: moon-show 24s linear infinite;
+}
+
+@keyframes sun-show {
+  0%, 48% { opacity: 1; transform: translate(-50%, 0); }
+  52%, 100% { opacity: 0; transform: translate(-50%, 0); }
+}
+
+@keyframes moon-show {
+  0%, 48% { opacity: 0; transform: translate(-50%, 0); }
+  52%, 100% { opacity: 1; transform: translate(-50%, 0); }
+}
+
+body.scene-started .bottom-garden {
+  z-index: 2;
+}
 .star-cursor {
   top: 0;
   left: 0;
