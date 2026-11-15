@@ -20,6 +20,7 @@ function showPageContent() {
 }
 
 function showStartScreen() {
+  document.body.classList.add('cursor-scene');
   gate.hidden = true;
   pageContent.hidden = true;
 
