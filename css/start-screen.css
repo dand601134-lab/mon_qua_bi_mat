@@ -535,4 +535,26 @@ body.scene-started::after {
   animation: none;
   opacity: 0;
   background: none;
+}body.scene-started {
+  background: linear-gradient(180deg, #f2b6d8 0%, #d4b5f4 42%, #f9d9c7 100%);
+}
+
+body.scene-started::before {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 245, 210, 0.9), transparent 12%),
+    radial-gradient(circle at 70% 23%, rgba(255, 240, 220, 0.7), transparent 16%),
+    linear-gradient(180deg, #f2b6d8 0%, #d4b5f4 45%, #f9d9c7 100%);
+  opacity: 1;
+}
+
+body.scene-started::after {
+  opacity: 0 !important;
+  background: none !important;
+  animation: none !important;
+}
+
+body.scene-started .sky-effects,
+body.scene-started .bottom-garden {
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
