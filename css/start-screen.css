@@ -523,3 +523,16 @@ body.cursor-scene .star-cursor {
     transform: translate(-50%, -32px) scale(0.15) rotate(35deg);
   }
 }
+/* Sau khi chạm: đổi nền tối thành nền hồng tím */
+body.scene-started::before {
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(255, 224, 166, 0.75), transparent 35%),
+    linear-gradient(135deg, #f3a6cf 0%, #c5a5e8 52%, #f7c2d2 100%);
+}
+
+/* Tắt lớp sao chấm của nền tối */
+body.scene-started::after {
+  animation: none;
+  opacity: 0;
+  background: none;
+}
