@@ -522,7 +522,7 @@ body.scene-started .moon {
   }
   28% {
     opacity: 1;
-    transform: translateY(-82vh);
+    transform: translateY(-100vh);
   }
   44% {
     opacity: 1;
@@ -546,7 +546,7 @@ body.scene-started .moon {
   }
   78% {
     opacity: 1;
-    transform: translateY(-82vh);
+    transform: translateY(-100vh);
   }
   94% {
     opacity: 1;
