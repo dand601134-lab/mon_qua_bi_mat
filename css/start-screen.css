@@ -494,8 +494,8 @@ body.scene-started .sky-orb {
   bottom: 8vh;
   left: auto;
   z-index: 2;
-  width: clamp(120px, 16vw, 180px);
-  height: clamp(120px, 16vw, 180px);
+  width: clamp(79px, 10vw, 100px);
+  height: clamp(79px, 10vw, 100px);
 }
 
 body.scene-started .bottom-garden {
@@ -522,7 +522,7 @@ body.scene-started .moon {
   }
   30%, 40% {
     opacity: 1;
-    transform: translateY(calc(-87vh + clamp(120px, 16vw, 180px)));
+    transform: translateY(calc(-87vh + clamp(72px, 10vw, 100px)));
   }
   50% {
     opacity: 1;
@@ -542,7 +542,7 @@ body.scene-started .moon {
   }
   82%, 90% {
     opacity: 1;
-    transform: translateY(calc(-87vh + clamp(120px, 16vw, 180px)));
+    transform: translateY(calc(-87vh + clamp(72px, 10vw, 100px)));
   }
   98% {
     opacity: 1;
