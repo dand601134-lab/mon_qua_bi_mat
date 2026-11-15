@@ -53,25 +53,33 @@ body::after {
 }
 
 body::before {
-  background: linear-gradient(135deg, #ffb6c1, #ffd1b8);
-  animation: pink-background 24s ease-in-out infinite;
+  background:
+    radial-gradient(ellipse at 50% 55%, #1a1018 0%, #09070a 60%, #030305 100%);
 }
 
 body::after {
-  background: linear-gradient(135deg, #d8b8ff, #a9c8ff);
-  animation: purple-background 24s ease-in-out infinite;
+  background:
+    radial-gradient(circle at 9% 12%, rgba(255, 210, 180, .8) 0 1px, transparent 4px),
+    radial-gradient(circle at 17% 31%, rgba(255, 210, 180, .65) 0 1px, transparent 4px),
+    radial-gradient(circle at 28% 8%, rgba(255, 220, 200, .7) 0 1px, transparent 4px),
+    radial-gradient(circle at 39% 25%, rgba(255, 210, 180, .6) 0 1px, transparent 4px),
+    radial-gradient(circle at 48% 14%, rgba(255, 220, 200, .8) 0 1px, transparent 5px),
+    radial-gradient(circle at 61% 34%, rgba(255, 210, 180, .65) 0 1px, transparent 4px),
+    radial-gradient(circle at 73% 10%, rgba(255, 220, 200, .7) 0 1px, transparent 4px),
+    radial-gradient(circle at 86% 22%, rgba(255, 210, 180, .8) 0 1px, transparent 5px),
+    radial-gradient(circle at 95% 48%, rgba(255, 220, 200, .7) 0 1px, transparent 4px),
+    radial-gradient(circle at 7% 76%, rgba(255, 210, 180, .7) 0 1px, transparent 5px),
+    radial-gradient(circle at 24% 88%, rgba(255, 220, 200, .6) 0 1px, transparent 4px),
+    radial-gradient(circle at 42% 70%, rgba(255, 210, 180, .8) 0 1px, transparent 5px),
+    radial-gradient(circle at 58% 84%, rgba(255, 220, 200, .65) 0 1px, transparent 4px),
+    radial-gradient(circle at 77% 73%, rgba(255, 210, 180, .8) 0 1px, transparent 5px),
+    radial-gradient(circle at 91% 90%, rgba(255, 220, 200, .7) 0 1px, transparent 4px);
+  animation: starfield-twinkle 4s ease-in-out infinite alternate;
 }
 
-@keyframes pink-background {
-  0%, 38% { opacity: 1; }
-  50%, 88% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-@keyframes purple-background {
-  0%, 38% { opacity: 0; }
-  50%, 88% { opacity: 1; }
-  100% { opacity: 0; }
+@keyframes starfield-twinkle {
+  from { opacity: .55; }
+  to { opacity: 1; }
 }
 
 .sky-orb {
@@ -412,4 +420,106 @@ body::after {
 .page-content {
   position: relative;
   z-index: 2;
+}
+/* Trước khi chạm: chỉ hiện nền sao và lời nhắc */
+body:not(.scene-started) .sky-orb,
+body:not(.scene-started) .bottom-garden,
+body:not(.scene-started) .sky-cloud,
+body:not(.scene-started) .flying-leaf {
+  visibility: hidden;
+}
+
+body:not(.scene-started) .stars {
+  visibility: visible;
+  opacity: 0.85;
+  animation: none;
+}
+
+/* Lời nhắc chạm nằm phía dưới, toàn màn hình có thể chạm */
+#start-screen:not([hidden]) {
+  position: fixed;
+  inset: 0;
+  z-index: 99997;
+  display: grid;
+  place-items: end center;
+  padding: 24px 24px max(32px, env(safe-area-inset-bottom));
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+.start-prompt {
+  margin: 0;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(25, 16, 23, 0.6);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
+
+/* Mặt trời và mặt trăng cùng vị trí, lớn hơn và cao hơn */
+.sky-orb {
+  top: 10vh;
+  bottom: auto;
+  left: 50%;
+  right: auto;
+  width: clamp(120px, 16vw, 180px);
+  height: clamp(120px, 16vw, 180px);
+}
+
+@keyframes sun-cycle {
+  0%, 100% { opacity: 0; transform: translate(-50%, 130px); }
+  10%, 40% { opacity: 1; transform: translate(-50%, 0); }
+  25% { opacity: 1; transform: translate(-50%, -40px); }
+  50% { opacity: 0; transform: translate(-50%, 130px); }
+}
+
+@keyframes moon-cycle {
+  0%, 45%, 100% { opacity: 0; transform: translate(-50%, 130px); }
+  58%, 92% { opacity: 1; transform: translate(-50%, 0); }
+  75% { opacity: 1; transform: translate(-50%, -40px); }
+}
+
+/* Kiểu con trỏ sao và vệt sao */
+body.cursor-scene,
+body.cursor-scene * {
+  cursor: none !important;
+}
+
+.star-cursor,
+.star-trail {
+  position: fixed;
+  z-index: 100001;
+  pointer-events: none;
+  color: #ffd9f2;
+  text-shadow: 0 0 8px #ff8ed2, 0 0 20px #ff8ed2;
+}
+
+.star-cursor {
+  top: 0;
+  left: 0;
+  opacity: 0;
+  font-size: 25px;
+  transform: translate(-50%, -50%);
+}
+
+body.cursor-scene .star-cursor {
+  opacity: 1;
+}
+
+.star-trail {
+  animation: trail-fade 800ms ease-out forwards;
+}
+
+@keyframes trail-fade {
+  from {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -32px) scale(0.15) rotate(35deg);
+  }
 }
