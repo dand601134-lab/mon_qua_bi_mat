@@ -389,17 +389,17 @@
   </div>
 
   <div
-    id="start-screen"
-    hidden
-    role="button"
-    tabindex="0"
-    aria-label="Chạm vào màn hình để bắt đầu"
-    onclick="document.body.classList.add('scene-started'); this.hidden = true;"
-    onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }"
-  >
-    <p class="start-prompt">Chạm vào màn hình để bắt đầu</p>
-  </div>
-
+  id="start-screen"
+  hidden
+  role="button"
+  tabindex="0"
+  aria-label="Chạm vào màn hình để bắt đầu"
+  onclick="document.body.classList.add('scene-started'); this.hidden = true;"
+  onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }"
+>
+  <p class="start-prompt">Chạm vào màn hình để bắt đầu</p>
+</div>
+  
   <main class="page-content" id="page-content" hidden>
   <div class="card">
     <h1>Trang demo của tôi</h1>
