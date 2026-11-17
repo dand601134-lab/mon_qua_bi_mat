@@ -5,19 +5,21 @@
   const letterDialog = document.getElementById("letter-dialog");
   const closeLetterButton = document.getElementById("close-letter");
 
-  // Chạm lần kế tiếp sau khi màn hình bắt đầu đã đóng thì hiện bó hoa.
-  document.addEventListener("pointerdown", (event) => {
-    if (
-      event.target.closest("#envelope-button") ||
-      event.target.closest("#letter-dialog")
-    ) return;
-
-    if (!startScreen?.hidden) return;
+  function showGiftScene() {
     if (!document.body.classList.contains("scene-started")) return;
     if (!giftScene || !giftScene.hidden) return;
 
     giftScene.hidden = false;
     requestAnimationFrame(() => giftScene.classList.add("is-visible"));
+  }
+
+  document.addEventListener("click", (event) => {
+    if (event.target.closest("#start-screen")) return;
+    if (event.target.closest("#envelope-button")) return;
+    if (event.target.closest("#letter-dialog")) return;
+    if (!startScreen || !startScreen.hidden) return;
+
+    showGiftScene();
   });
 
   envelopeButton?.addEventListener("click", () => {
