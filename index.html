@@ -394,7 +394,7 @@
     role="button"
     tabindex="0"
     aria-label="Chạm vào màn hình để bắt đầu"
-    onclick="document.body.classList.add('scene-started'); this.hidden = true; document.getElementById('page-content').hidden = false;"
+    onclick="document.body.classList.add('scene-started'); this.hidden = true;"
     onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }"
   >
     <p class="start-prompt">Chạm vào màn hình để bắt đầu</p>
@@ -416,7 +416,73 @@
     </video>
   </div>
 </main>
+<div id="gift-scene" hidden>
+  <svg class="bouquet" viewBox="0 0 360 500" role="img" aria-label="Bó hoa tulip">
+    <defs>
+      <linearGradient id="tulip-pink" x2="0" y2="1">
+        <stop stop-color="#ffd6e8"/>
+        <stop offset="1" stop-color="#e83e83"/>
+      </linearGradient>
+      <linearGradient id="bouquet-paper" x2="1" y2="1">
+        <stop stop-color="#fff0cf"/>
+        <stop offset="1" stop-color="#d5a35b"/>
+      </linearGradient>
+      <g id="tulip">
+        <path d="M0 0 C-30-8-34-42-21-60 C-12-74-3-60 0-48 C5-70 18-73 25-54 C35-28 19-5 0 0Z"
+              fill="url(#tulip-pink)" stroke="#d42e72" stroke-width="3"/>
+        <path d="M0-4 C-11-14-15-35-8-51 C-4-60 0-43 2-35 C7-53 13-53 17-40 C22-23 13-9 0-4Z"
+              fill="none" stroke="#ff9bc5" stroke-width="3"/>
+      </g>
+    </defs>
 
+    <!-- Giấy gói -->
+    <path d="M75 270 L180 325 L285 270 L250 445 L180 490 L110 445Z"
+          fill="url(#bouquet-paper)" stroke="#bd894c" stroke-width="4"/>
+
+    <!-- Cành -->
+    <g fill="none" stroke="#397b37" stroke-width="8" stroke-linecap="round">
+      <path d="M180 370 Q120 230 75 110"/>
+      <path d="M180 370 Q145 210 130 80"/>
+      <path d="M180 370 Q170 210 180 65"/>
+      <path d="M180 370 Q215 210 230 80"/>
+      <path d="M180 370 Q250 230 285 110"/>
+      <path d="M180 370 Q100 270 105 170"/>
+      <path d="M180 370 Q260 270 255 170"/>
+    </g>
+
+    <!-- Lá -->
+    <g fill="#4a963f" stroke="#347333" stroke-width="2">
+      <path d="M150 340 Q95 300 102 265 Q145 275 165 320Z"/>
+      <path d="M210 340 Q265 300 258 265 Q215 275 195 320Z"/>
+      <path d="M160 300 Q120 260 135 230 Q170 250 178 290Z"/>
+      <path d="M200 300 Q240 260 225 230 Q190 250 182 290Z"/>
+    </g>
+
+    <!-- Bông tulip -->
+    <use href="#tulip" transform="translate(75 115) scale(.8)"/>
+    <use href="#tulip" transform="translate(130 85) scale(.85)"/>
+    <use href="#tulip" transform="translate(180 70) scale(.9)"/>
+    <use href="#tulip" transform="translate(230 85) scale(.85)"/>
+    <use href="#tulip" transform="translate(285 115) scale(.8)"/>
+    <use href="#tulip" transform="translate(105 175) scale(.78)"/>
+    <use href="#tulip" transform="translate(255 175) scale(.78)"/>
+
+    <!-- Nơ -->
+    <path d="M180 375 C145 350 125 370 150 395 L180 383 L210 395 C235 370 215 350 180 375Z"
+          fill="#f28caf" stroke="#d95d82" stroke-width="3"/>
+    <path d="M180 383 L155 455 L180 435 L205 455Z"
+          fill="#f7a4bd" stroke="#d95d82" stroke-width="3"/>
+  </svg>
+
+  <button id="envelope-button" type="button" aria-label="Mở lá thư">
+    <span>♥</span>
+  </button>
+</div>
+
+<dialog id="letter-dialog">
+  <button id="close-letter" type="button" aria-label="Đóng thư">×</button>
+  <p>Nội dung thư sẽ thêm sau.</p>
+</dialog>
 <div class="bottom-garden" aria-hidden="true">
   <div class="garden-grass"></div>
 
