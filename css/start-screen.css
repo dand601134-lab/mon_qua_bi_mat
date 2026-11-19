@@ -736,11 +736,13 @@ body.cursor-scene .star-cursor {
 }
 
 .letter-content {
-  font-family: "Be Vietnam Pro", Arial, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  font-family: "Charm", "Be Vietnam Pro", Arial, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
 }
 
 .letter-content p {
-  font-weight: 500;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.7;
 }
 
 #close-letter {
@@ -753,4 +755,73 @@ body.cursor-scene .star-cursor {
   color: #b64273;
   font-size: 28px;
   cursor: pointer;
+}
+.letter-content .letter-next {
+  display: block;
+  width: 100%;
+  margin-top: 22px;
+  padding: 12px 16px;
+  border: 1px solid #f38bb0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffe3ee, #f1e4ff);
+  color: #b64273;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+
+#universe-page[hidden] {
+  display: none !important;
+}
+
+#universe-page {
+  position: fixed;
+  inset: 0;
+  z-index: 50000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  overflow: hidden;
+  color: #f8f4ff;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(124, 58, 237, 0.35), transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(14, 116, 144, 0.3), transparent 50%),
+    #05060f;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+#universe-page.is-visible {
+  opacity: 1;
+}
+
+.universe-stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, #fff 1px, transparent 2px),
+    radial-gradient(circle, #ffd9f2 1.5px, transparent 2.5px),
+    radial-gradient(circle, #fff 1px, transparent 2px);
+  background-size: 120px 120px, 190px 190px, 80px 80px;
+  background-position: 0 0, 40px 70px, 20px 30px;
+  animation: universe-twinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes universe-twinkle {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+
+.universe-content {
+  position: relative;
+  max-width: 560px;
+}
+
+.universe-content h2 {
+  margin: 0 0 12px;
+  font-size: clamp(24px, 6vw, 36px);
+  text-shadow: 0 0 18px #ff8ed2;
 }
