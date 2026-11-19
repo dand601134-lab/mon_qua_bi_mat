@@ -28,8 +28,18 @@
     event.stopPropagation();
     letterDialog?.showModal();
   });
-
+  
   closeLetterButton?.addEventListener("click", () => {
     letterDialog?.close();
+  });
+  const goUniverseButton = document.getElementById("go-universe");
+  const universePage = document.getElementById("universe-page");
+
+  goUniverseButton?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    letterDialog?.close();
+    if (!universePage) return;
+    universePage.hidden = false;
+    requestAnimationFrame(() => universePage.classList.add("is-visible"));
   });
 })();
