@@ -735,6 +735,14 @@ body.cursor-scene .star-cursor {
   letter-spacing: 1px;
 }
 
+.letter-content {
+  font-family: "Be Vietnam Pro", Arial, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+}
+
+.letter-content p {
+  font-weight: 500;
+}
+
 #close-letter {
   position: absolute;
   top: 8px;
