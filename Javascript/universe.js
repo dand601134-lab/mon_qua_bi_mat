@@ -96,11 +96,11 @@
   };
 
   /* ---------- Hạt ---------- */
-  const N = window.innerWidth < 700 ? 3200 : 6500;
+  const N = window.innerWidth < 700 ? 4500 : 9000;
   const parts = [];
   for (let i = 0; i < N; i++) {
     const t = SHAPES.galaxy.particle(i);
-    parts.push({ x: t.x, y: t.y, z: t.z, h: t.h, l: t.l, tx: t.x, ty: t.y, tz: t.z, th: t.h, tl: t.l, s: 0.5 + rand() * 1.0 });
+    parts.push({ x: t.x, y: t.y, z: t.z, h: t.h, l: t.l, tx: t.x, ty: t.y, tz: t.z, th: t.h, tl: t.l, s: 0.6 + rand() * 1.2 });
   }
 
   /* ---------- Thẻ ảnh ---------- */
@@ -255,7 +255,7 @@
       p.h += (p.th - p.h) * ease;
       p.l += (p.tl - p.l) * ease;
       const q = project(p.x, p.y, p.z);
-      const depth = clamp(0.6 - q.z2 / (R * 3.4), 0.18, 1);
+      const depth = clamp(0.75 - q.z2 / (R * 3.4), 0.3, 1);
       const r = Math.max(0.5, p.s * q.sc * unit * zoom);
       ctx.fillStyle = `hsla(${p.h},90%,${p.l}%,${depth})`;
       ctx.beginPath();
