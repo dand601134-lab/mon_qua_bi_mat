@@ -617,7 +617,26 @@
     <input id="zoom-range" type="range" min="0.5" max="2" step="0.05" value="1" aria-label="Kích thước">
     <button type="button" id="zoom-in" aria-label="Phóng to">+</button>
   </div>
+  <button type="button" id="gift-open" aria-label="Mở quà tìm điều bí mật">
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <rect x="8" y="26" width="48" height="32" rx="4" fill="#ff7eb6" stroke="#c94b76" stroke-width="2.5"/>
+      <rect x="5" y="18" width="54" height="12" rx="4" fill="#ff9ec9" stroke="#c94b76" stroke-width="2.5"/>
+      <rect x="28" y="18" width="8" height="40" fill="#ffe08a" stroke="#c9944e" stroke-width="1.5"/>
+      <path d="M32 18 C20 4 10 12 20 18 Z" fill="#ffd1e1" stroke="#c94b76" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M32 18 C44 4 54 12 44 18 Z" fill="#ffd1e1" stroke="#c94b76" stroke-width="2.2" stroke-linejoin="round"/>
+    </svg>
+    <span>Mở quà tìm điều bí mật</span>
+  </button>
 
+  <div id="secret-panel" hidden>
+    <div class="secret-card">
+      <button type="button" id="secret-close" aria-label="Đóng">×</button>
+      <h2>Điều bí mật 🎁</h2>
+      <div id="secret-content">
+        <p>Nội dung sẽ thêm sau.</p>
+      </div>
+    </div>
+  </div>
   <div id="photo-viewer" hidden>
     <img alt="Ảnh phóng to">
     <button type="button" id="photo-close" aria-label="Đóng">×</button>
