@@ -780,48 +780,166 @@ body.cursor-scene .star-cursor {
   position: fixed;
   inset: 0;
   z-index: 50000;
-  display: grid;
-  place-items: center;
-  padding: 24px;
   overflow: hidden;
-  color: #f8f4ff;
-  text-align: center;
-  background:
-    radial-gradient(ellipse at 50% 40%, rgba(124, 58, 237, 0.35), transparent 60%),
-    radial-gradient(ellipse at 20% 80%, rgba(14, 116, 144, 0.3), transparent 50%),
-    #05060f;
+  color: #fff;
+  background: radial-gradient(ellipse at 50% 45%, #1a0f22 0%, #08050d 60%, #030206 100%);
   opacity: 0;
   transition: opacity 1.5s ease;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+}
+
+#universe-page:active {
+  cursor: grabbing;
 }
 
 #universe-page.is-visible {
   opacity: 1;
 }
 
-.universe-stars {
+#universe-canvas {
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(circle, #fff 1px, transparent 2px),
-    radial-gradient(circle, #ffd9f2 1.5px, transparent 2.5px),
-    radial-gradient(circle, #fff 1px, transparent 2px);
-  background-size: 120px 120px, 190px 190px, 80px 80px;
-  background-position: 0 0, 40px 70px, 20px 30px;
-  animation: universe-twinkle 3s ease-in-out infinite alternate;
+  width: 100%;
+  height: 100%;
 }
 
-@keyframes universe-twinkle {
-  from { opacity: 0.4; }
-  to { opacity: 1; }
+#universe-photos {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.universe-content {
-  position: relative;
-  max-width: 560px;
+.u-photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90px;
+  height: 120px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  background: #1b1320 center / cover no-repeat;
+  box-shadow: 0 0 18px rgba(255, 150, 200, 0.35);
+  pointer-events: auto;
+  cursor: pointer;
+  will-change: transform;
 }
 
-.universe-content h2 {
-  margin: 0 0 12px;
-  font-size: clamp(24px, 6vw, 36px);
-  text-shadow: 0 0 18px #ff8ed2;
+.u-photo::after {
+  content: "♥";
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 224, 160, 0.9);
+  color: #7a2a3e;
+  font-size: 11px;
+}
+
+.universe-controls {
+  position: absolute;
+  left: 50%;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 96vw;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  background: rgba(20, 14, 28, 0.78);
+  backdrop-filter: blur(8px);
+  transform: translateX(-50%);
+  cursor: default;
+}
+
+.universe-controls button {
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: #f3e9ff;
+  font: inherit;
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.universe-controls .shape-btn.is-active {
+  border-color: rgba(255, 214, 140, 0.6);
+  background: rgba(255, 214, 140, 0.12);
+  color: #ffd98a;
+}
+
+.universe-controls #zoom-out,
+.universe-controls #zoom-in {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-color: rgba(255, 255, 255, 0.25);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.ctrl-sep {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+#zoom-range {
+  width: 90px;
+  accent-color: #ffd98a;
+}
+
+#photo-viewer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  background: rgba(5, 3, 10, 0.82);
+  cursor: default;
+}
+
+#photo-viewer[hidden] {
+  display: none !important;
+}
+
+#photo-viewer img {
+  max-width: 88vw;
+  max-height: 86vh;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(255, 150, 200, 0.45);
+  animation: viewer-pop 0.35s ease both;
+}
+
+@keyframes viewer-pop {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+#photo-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 38px;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .universe-controls { gap: 4px; padding: 8px 10px; }
+  .universe-controls button { padding: 6px 8px; font-size: 12px; }
+  #zoom-range { width: 56px; }
 }
