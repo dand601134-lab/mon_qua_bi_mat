@@ -605,10 +605,22 @@
 </div>
 
 <section id="universe-page" hidden>
-  <div class="universe-stars" aria-hidden="true"></div>
-  <div class="universe-content">
-    <h2>Chào mừng đến vũ trụ ✨</h2>
-    <p>Nội dung trang tiếp theo sẽ thêm sau.</p>
+  <canvas id="universe-canvas"></canvas>
+  <div id="universe-photos"></div>
+
+  <div class="universe-controls">
+    <button type="button" class="shape-btn is-active" data-shape="galaxy">🌌 Ngân Hà</button>
+    <button type="button" class="shape-btn" data-shape="heart">💖 Trái Tim Tinh Tú</button>
+    <button type="button" class="shape-btn" data-shape="rose">🌹 Đóa Hồng 3D</button>
+    <span class="ctrl-sep"></span>
+    <button type="button" id="zoom-out" aria-label="Thu nhỏ">−</button>
+    <input id="zoom-range" type="range" min="0.5" max="2" step="0.05" value="1" aria-label="Kích thước">
+    <button type="button" id="zoom-in" aria-label="Phóng to">+</button>
+  </div>
+
+  <div id="photo-viewer" hidden>
+    <img alt="Ảnh phóng to">
+    <button type="button" id="photo-close" aria-label="Đóng">×</button>
   </div>
 </section>
   
@@ -652,5 +664,6 @@
 </script>
 
 <script src="./Javascript/bouquet.js"></script>
+<script src="./Javascript/universe.js"></script>
 </body>
 </html>
