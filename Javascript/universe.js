@@ -12,7 +12,8 @@
     "./img/img_9.png",
     "./img/img_10.png"
   ];
-// =====================================
+  // =====================================
+
   const PHOTO_LIST = [...PHOTOS, ...PHOTOS];
 
   const page = document.getElementById("universe-page");
@@ -37,17 +38,17 @@
     galaxy: {
       particle(i) {
         const r = rand();
-        if (r < 0.18) {
-          const rad = Math.pow(rand(), 1.6) * R * 0.45, a = rand() * TAU;
-          return { x: Math.cos(a) * rad, y: g() * rad * 0.35, z: Math.sin(a) * rad, h: 300 + rand() * 30, l: 88 };
+        if (r < 0.2) {
+          const rad = Math.pow(rand(), 1.5) * R * 0.5, a = rand() * TAU;
+          return { x: Math.cos(a) * rad, y: g() * rad * 0.45, z: Math.sin(a) * rad, h: 300 + rand() * 30, l: 85 + rand() * 8 };
         }
-        if (r < 0.62) {
-          const a = rand() * TAU, rad = R * 1.45 + g() * R * 0.12;
-          return { x: Math.cos(a) * rad, y: g() * 10, z: Math.sin(a) * rad, h: 305 + rand() * 40, l: 72 };
+        if (r < 0.34) {
+          const a = rand() * TAU, rad = R * 1.45 + g() * R * 0.16;
+          return { x: Math.cos(a) * rad, y: g() * 16, z: Math.sin(a) * rad, h: 305 + rand() * 40, l: 72 };
         }
-        const arm = i % 3, rad = Math.pow(rand(), 0.7) * R * 1.3 + R * 0.1;
-        const a = (rad / R) * 3.2 + arm * 2.094 + g() * 0.35;
-        return { x: Math.cos(a) * rad, y: g() * 14 * (1.2 - rad / (R * 1.3)), z: Math.sin(a) * rad, h: 280 + (rad / R) * 60, l: 62 + rand() * 20 };
+        const arm = i % 3, rad = Math.pow(rand(), 0.65) * R * 1.35 + R * 0.08;
+        const a = (rad / R) * 3.2 + arm * 2.094 + g() * 0.5;
+        return { x: Math.cos(a) * rad, y: g() * 26 * (1.2 - rad / (R * 1.5)), z: Math.sin(a) * rad, h: 280 + (rad / R) * 60, l: 62 + rand() * 22 };
       },
       photo(k, n) {
         const a = (k / n) * TAU + 0.3, rad = R * (0.95 + (k % 3) * 0.28);
@@ -55,7 +56,7 @@
       }
     },
 
-       heart: {
+    heart: {
       particle() {
         const t = rand() * TAU;
         const s = rand() < 0.5 ? 0.92 + rand() * 0.08 : Math.pow(rand(), 0.6);
@@ -95,14 +96,14 @@
   };
 
   /* ---------- Hạt ---------- */
-  const N = window.innerWidth < 700 ? 2600 : 4500;
+  const N = window.innerWidth < 700 ? 3200 : 6500;
   const parts = [];
   for (let i = 0; i < N; i++) {
     const t = SHAPES.galaxy.particle(i);
-    parts.push({ x: t.x, y: t.y, z: t.z, h: t.h, l: t.l, tx: t.x, ty: t.y, tz: t.z, th: t.h, tl: t.l, s: 0.7 + rand() * 1.4 });
+    parts.push({ x: t.x, y: t.y, z: t.z, h: t.h, l: t.l, tx: t.x, ty: t.y, tz: t.z, th: t.h, tl: t.l, s: 0.5 + rand() * 1.0 });
   }
 
-    /* ---------- Thẻ ảnh ---------- */
+  /* ---------- Thẻ ảnh ---------- */
   const cards = PHOTO_LIST.map((src, k) => {
     const el = document.createElement("div");
     el.className = "u-photo";
@@ -113,9 +114,7 @@
     return { el, x: t.x, y: t.y, z: t.z, tx: t.x, ty: t.y, tz: t.z };
   });
 
-  let currentShape = "galaxy";
   function setShape(name) {
-    currentShape = name;
     const s = SHAPES[name];
     parts.forEach((p, i) => {
       const t = s.particle(i);
@@ -183,7 +182,7 @@
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeViewer(); });
 
   /* ---------- Sao nền & sao băng ---------- */
-  const bgStars = Array.from({ length: 140 }, () => ({ x: rand(), y: rand(), r: 0.4 + rand() * 1.2, ph: rand() * TAU, sp: 0.5 + rand() * 1.5 }));
+  const bgStars = Array.from({ length: 180 }, () => ({ x: rand(), y: rand(), r: 0.4 + rand() * 1.2, ph: rand() * TAU, sp: 0.5 + rand() * 1.5 }));
   const shooters = [];
   let nextShooter = 800;
 
@@ -217,7 +216,6 @@
     last = now;
     const ease = 1 - Math.pow(0.94, dt);
 
-    // Xoay
     if (!dragging) {
       yaw += vyaw * dt + 0.0025 * dt;
       vyaw *= Math.pow(0.95, dt);
@@ -239,7 +237,6 @@
       return { sx: cx + x1 * sc * unit * zoom, sy: cy + y2 * sc * unit * zoom, sc, z2 };
     }
 
-    // Nền
     ctx.clearRect(0, 0, W, H);
     ctx.globalCompositeOperation = "lighter";
     const tsec = now / 1000;
@@ -251,7 +248,6 @@
       ctx.fill();
     }
 
-    // Hạt
     for (const p of parts) {
       p.x += (p.tx - p.x) * ease;
       p.y += (p.ty - p.y) * ease;
@@ -259,7 +255,7 @@
       p.h += (p.th - p.h) * ease;
       p.l += (p.tl - p.l) * ease;
       const q = project(p.x, p.y, p.z);
-      const depth = clamp(0.55 - q.z2 / (R * 3.4), 0.15, 1);
+      const depth = clamp(0.6 - q.z2 / (R * 3.4), 0.18, 1);
       const r = Math.max(0.5, p.s * q.sc * unit * zoom);
       ctx.fillStyle = `hsla(${p.h},90%,${p.l}%,${depth})`;
       ctx.beginPath();
@@ -267,7 +263,6 @@
       ctx.fill();
     }
 
-    // Sao băng
     nextShooter -= dt * 16.67;
     if (nextShooter <= 0) { spawnShooter(); nextShooter = 1500 + rand() * 3000; }
     for (let i = shooters.length - 1; i >= 0; i--) {
@@ -292,7 +287,6 @@
     }
     ctx.globalCompositeOperation = "source-over";
 
-    // Thẻ ảnh
     for (const c of cards) {
       c.x += (c.tx - c.x) * ease;
       c.y += (c.ty - c.y) * ease;
