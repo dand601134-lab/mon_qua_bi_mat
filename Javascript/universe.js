@@ -8,9 +8,12 @@
     "./img/img_5.png",
     "./img/img_6.png",
     "./img/img_7.png",
-    "./img/img_8.png"
+    "./img/img_8.png",
+    "./img/img_9.png",
+    "./img/img_10.png"
   ];
 // =====================================
+  const PHOTO_LIST = [...PHOTOS, ...PHOTOS];
 
   const page = document.getElementById("universe-page");
   if (!page) return;
@@ -38,11 +41,11 @@
           const rad = Math.pow(rand(), 1.6) * R * 0.45, a = rand() * TAU;
           return { x: Math.cos(a) * rad, y: g() * rad * 0.35, z: Math.sin(a) * rad, h: 300 + rand() * 30, l: 88 };
         }
-        if (r < 0.55) {
+        if (r < 0.62) {
           const a = rand() * TAU, rad = R * 1.45 + g() * R * 0.12;
           return { x: Math.cos(a) * rad, y: g() * 10, z: Math.sin(a) * rad, h: 305 + rand() * 40, l: 72 };
         }
-        const arm = i % 3, rad = Math.pow(rand(), 0.8) * R * 1.2 + R * 0.1;
+        const arm = i % 3, rad = Math.pow(rand(), 0.7) * R * 1.3 + R * 0.1;
         const a = (rad / R) * 3.2 + arm * 2.094 + g() * 0.35;
         return { x: Math.cos(a) * rad, y: g() * 14 * (1.2 - rad / (R * 1.3)), z: Math.sin(a) * rad, h: 280 + (rad / R) * 60, l: 62 + rand() * 20 };
       },
@@ -52,13 +55,13 @@
       }
     },
 
-    heart: {
+       heart: {
       particle() {
         const t = rand() * TAU;
-        const s = rand() < 0.65 ? 0.9 + rand() * 0.1 : Math.sqrt(rand());
+        const s = rand() < 0.5 ? 0.92 + rand() * 0.08 : Math.pow(rand(), 0.6);
         const x = 16 * Math.pow(Math.sin(t), 3);
         const yf = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
-        return { x: x * 12.5 * s, y: -(yf + 2.5) * 12.5 * s, z: g() * 45, h: 335 + rand() * 25, l: 62 + rand() * 18 };
+        return { x: x * 12.5 * s, y: -(yf + 2.5) * 12.5 * s, z: g() * 70, h: 335 + rand() * 25, l: 62 + rand() * 18 };
       },
       photo(k, n) {
         const t = (k / n) * TAU + 0.2;
@@ -72,13 +75,13 @@
     rose: {
       particle() {
         const q = rand();
-        if (q < 0.72) {
+        if (q < 0.82) {
           const t = Math.pow(rand(), 0.8), layer = Math.floor(t * 6);
           const a = rand() * TAU;
-          const rad = (26 + t * 100) * (1 + 0.16 * Math.sin(5 * (a + layer * 0.9)));
+          const rad = (26 + t * 112) * (1 + 0.16 * Math.sin(5 * (a + layer * 0.9)));
           return { x: Math.cos(a) * rad, y: -40 - 95 * Math.pow(t, 1.3), z: Math.sin(a) * rad, h: 343 + rand() * 16, l: 42 + t * 24 };
         }
-        if (q < 0.9) {
+        if (q < 0.93) {
           return { x: g() * 3, y: -30 + rand() * 260, z: g() * 3, h: 135, l: 45 };
         }
         const side = rand() < 0.5 ? -1 : 1, s = rand(), bulge = Math.sin(s * Math.PI);
@@ -92,21 +95,21 @@
   };
 
   /* ---------- Hạt ---------- */
-  const N = window.innerWidth < 700 ? 1100 : 2000;
+  const N = window.innerWidth < 700 ? 2600 : 4500;
   const parts = [];
   for (let i = 0; i < N; i++) {
     const t = SHAPES.galaxy.particle(i);
     parts.push({ x: t.x, y: t.y, z: t.z, h: t.h, l: t.l, tx: t.x, ty: t.y, tz: t.z, th: t.h, tl: t.l, s: 0.7 + rand() * 1.4 });
   }
 
-  /* ---------- Thẻ ảnh ---------- */
-  const cards = PHOTOS.map((src, k) => {
+    /* ---------- Thẻ ảnh ---------- */
+  const cards = PHOTO_LIST.map((src, k) => {
     const el = document.createElement("div");
     el.className = "u-photo";
     el.style.backgroundImage = `url("${src}")`;
     el.dataset.src = src;
     photoLayer.appendChild(el);
-    const t = SHAPES.galaxy.photo(k, PHOTOS.length);
+    const t = SHAPES.galaxy.photo(k, PHOTO_LIST.length);
     return { el, x: t.x, y: t.y, z: t.z, tx: t.x, ty: t.y, tz: t.z };
   });
 
